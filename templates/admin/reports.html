@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Reports | CertChain</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Segoe UI, Arial, sans-serif;
+        }
+
+        body {
+            background:
+                linear-gradient(
+                    135deg,
+                    #081b33,
+                    #102d54
+                );
+
+            min-height: 100vh;
+            color: white;
+            padding: 35px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,.08);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid
+                rgba(255,255,255,.12);
+        }
+
+        .card h2 {
+            color: #bfdbfe;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 8px;
+            background: #2563eb;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .back {
+            background: #475569;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        CertChain Reports
+    </h1>
+
+    <p class="subtitle">
+        System summary and certificate statistics
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h2>
+                Total Students
+            </h2>
+
+            <div class="number">
+                {{ total_students }}
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                Active Students
+            </h2>
+
+            <div class="number">
+                {{ active_students }}
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                Total Certificates
+            </h2>
+
+            <div class="number">
+                {{ total_certificates }}
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                Verified Certificates
+            </h2>
+
+            <div class="number">
+                {{ verified_certificates }}
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                Blockchain Records
+            </h2>
+
+            <div class="number">
+                {{ total_blocks }}
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                Activity Events
+            </h2>
+
+            <div class="number">
+                {{ total_logs }}
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="actions">
+
+        <a
+            href="{{ url_for('download_report') }}"
+            class="btn"
+        >
+            Download CSV Report
+        </a>
+
+        <a
+            href="{{ url_for('admin_activity_logs') }}"
+            class="btn"
+        >
+            View Activity Logs
+        </a>
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="btn back"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

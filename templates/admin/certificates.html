@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Certificates | CertChain</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #071329,
+                #0d2344,
+                #071329
+            );
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(5, 15, 35, 0.96);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar h2 {
+            color: #38bdf8;
+        }
+
+        .nav-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #334155;
+        }
+
+        .btn-success {
+            background: #16a34a;
+        }
+
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1500px;
+            margin: 35px auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            color: #38bdf8;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #cbd5e1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(210px, 1fr)
+            );
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            padding: 22px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            backdrop-filter: blur(12px);
+        }
+
+        .stat-card h3 {
+            margin-bottom: 10px;
+            color: #bfdbfe;
+            font-size: 15px;
+        }
+
+        .stat-card p {
+            color: #38bdf8;
+            font-size: 29px;
+            font-weight: bold;
+        }
+
+        .flash-message {
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+        }
+
+        .flash-success {
+            background: rgba(22, 163, 74, 0.2);
+            border: 1px solid #22c55e;
+        }
+
+        .flash-danger {
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid #ef4444;
+        }
+
+        .search-card {
+            padding: 20px;
+            margin-bottom: 22px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            backdrop-filter: blur(12px);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 12px;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 13px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 15px;
+        }
+
+        .search-form input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-form input:focus {
+            border-color: #38bdf8;
+        }
+
+        .table-card {
+            overflow-x: auto;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            backdrop-filter: blur(12px);
+        }
+
+        table {
+            width: 100%;
+            min-width: 1350px;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(37, 99, 235, 0.28);
+        }
+
+        th,
+        td {
+            padding: 15px 13px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: #7dd3fc;
+            font-size: 14px;
+        }
+
+        td {
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .student-name {
+            font-weight: bold;
+            color: white;
+        }
+
+        .student-info {
+            margin-top: 4px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-verified {
+            color: #86efac;
+            background: rgba(22, 163, 74, 0.18);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        .status-pending {
+            color: #fde68a;
+            background: rgba(202, 138, 4, 0.18);
+            border: 1px solid rgba(234, 179, 8, 0.5);
+        }
+
+        .hash-value {
+            display: inline-block;
+            max-width: 210px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #7dd3fc;
+            font-family: Consolas, monospace;
+            vertical-align: middle;
+        }
+
+        .copy-btn {
+            margin-left: 7px;
+            padding: 6px 9px;
+            border: none;
+            border-radius: 5px;
+            background: #334155;
+            color: white;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .copy-btn:hover {
+            background: #475569;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .small-btn {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .empty-state {
+            padding: 50px 20px;
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>CertChain Admin</h2>
+
+        <div class="nav-actions">
+            <a
+                href="{{ url_for('admin_dashboard') }}"
+                class="btn btn-secondary"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('view_students') }}"
+                class="btn btn-secondary"
+            >
+                Students
+            </a>
+
+            <a
+                href="{{ url_for('upload_certificate') }}"
+                class="btn btn-primary"
+            >
+                + Upload Certificate
+            </a>
+
+            <a
+                href="{{ url_for('verify_certificate') }}"
+                class="btn btn-success"
+            >
+                Verify Certificate
+            </a>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="btn btn-danger"
+            >
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <section class="page-header">
+            <div>
+                <h1>Certificate Management</h1>
+
+                <p>
+                    View, search and download issued certificates.
+                </p>
+            </div>
+
+            <a
+                href="{{ url_for('upload_certificate') }}"
+                class="btn btn-primary"
+            >
+                + Issue New Certificate
+            </a>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Certificates</h3>
+
+                <p>
+                    {{ certificates|length }}
+                </p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Verified Certificates</h3>
+
+                <p>
+                    {{
+                        certificates
+                        | selectattr(
+                            "status",
+                            "equalto",
+                            "Verified"
+                        )
+                        | list
+                        | length
+                    }}
+                </p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Search Result</h3>
+
+                <p>
+                    {{ certificates|length }}
+                </p>
+            </div>
+        </section>
+
+        <section class="search-card">
+            <form
+                action="{{ url_for('view_certificates') }}"
+                method="GET"
+                class="search-form"
+            >
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    placeholder="Search certificate, student, email, ID or hash"
+                >
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Search
+                </button>
+
+                {% if search %}
+                    <a
+                        href="{{ url_for('view_certificates') }}"
+                        class="btn btn-secondary"
+                    >
+                        Clear
+                    </a>
+                {% endif %}
+            </form>
+        </section>
+
+        <section class="table-card">
+
+            {% if certificates %}
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Student</th>
+                            <th>Certificate</th>
+                            <th>Type</th>
+                            <th>Issue Date</th>
+                            <th>SHA-256 Hash</th>
+                            <th>Status</th>
+                            <th>Uploaded On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                                            {% for certificate in certificates %}
+                            <tr>
+                                <td>
+                                    {{ loop.index }}
+                                </td>
+
+                                <td>
+                                    <div class="student-name">
+                                        {{ certificate.student.full_name }}
+                                    </div>
+
+                                    <div class="student-info">
+                                        ID:
+                                        {{ certificate.student.student_id }}
+                                        <br>
+                                        {{ certificate.student.email }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    {{ certificate.certificate_name }}
+                                </td>
+
+                                <td>
+                                    {{ certificate.certificate_type }}
+                                </td>
+
+                                <td>
+                                    {{ certificate.issue_date }}
+                                </td>
+
+                                <td>
+                                    <span
+                                        class="hash-value"
+                                        id="hash-{{ certificate.id }}"
+                                        title="{{ certificate.blockchain_hash }}"
+                                    >
+                                        {{ certificate.blockchain_hash }}
+                                    </span>
+
+                                    <button
+                                        type="button"
+                                        class="copy-btn"
+                                        onclick="copyHash(
+                                            'hash-{{ certificate.id }}'
+                                        )"
+                                    >
+                                        Copy
+                                    </button>
+                                </td>
+
+                                <td>
+                                    {% if certificate.status == "Verified" %}
+                                        <span class="status status-verified">
+                                            Verified
+                                        </span>
+                                    {% else %}
+                                        <span class="status status-pending">
+                                            {{ certificate.status }}
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if certificate.created_at %}
+                                        {{
+                                            certificate.created_at.strftime(
+                                                "%d-%m-%Y %I:%M %p"
+                                            )
+                                        }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <div class="action-buttons">
+
+                                        <a
+                                            href="{{ url_for(
+                                                'download_certificate',
+                                                certificate_id=certificate.id
+                                            ) }}"
+                                            class="btn btn-success small-btn"
+                                        >
+                                            Download
+                                        </a>
+                                        <a
+    href="{{ url_for(
+        'delete_certificate',
+        certificate_id=certificate.id
+    ) }}"
+    class="btn btn-danger small-btn"
+    onclick="return confirm('Are you sure you want to delete this certificate?');"
+>
+    Delete
+</a>
+
+                                        <a
+                                            href="{{ url_for(
+                                                'verify_certificate'
+                                            ) }}?hash={{ certificate.blockchain_hash }}"
+                                            class="btn btn-primary small-btn"
+                                        >
+                                            Verify
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                <div class="empty-state">
+                    <h3>No certificates found</h3>
+
+                    <p>
+                        Upload a new certificate or try another search.
+                    </p>
+
+                    <br>
+
+                    <a
+                        href="{{ url_for('upload_certificate') }}"
+                        class="btn btn-primary"
+                    >
+                        Upload Certificate
+                    </a>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+    <script>
+        function copyHash(elementId) {
+            const hashElement = document.getElementById(elementId);
+
+            if (!hashElement) {
+                alert("Hash value not found.");
+                return;
+            }
+
+            const hashValue = hashElement.textContent.trim();
+
+            navigator.clipboard.writeText(hashValue)
+                .then(function () {
+                    alert("SHA-256 hash copied successfully.");
+                })
+                .catch(function () {
+                    const temporaryInput = document.createElement("textarea");
+
+                    temporaryInput.value = hashValue;
+                    temporaryInput.style.position = "fixed";
+                    temporaryInput.style.opacity = "0";
+
+                    document.body.appendChild(temporaryInput);
+
+                    temporaryInput.focus();
+                    temporaryInput.select();
+
+                    document.execCommand("copy");
+
+                    document.body.removeChild(temporaryInput);
+
+                    alert("SHA-256 hash copied successfully.");
+                });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Verifier Dashboard - CertChain</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,Helvetica,sans-serif;
+        }
+
+        body{
+            background:#eef3fb;
+        }
+
+        .dashboard{
+            display:flex;
+            min-height:100vh;
+        }
+
+        /* ===========================
+           Sidebar
+        =========================== */
+
+        .sidebar{
+            width:250px;
+            background:#0f172a;
+            color:white;
+            padding:25px;
+        }
+
+        .logo{
+            font-size:30px;
+            font-weight:bold;
+            margin-bottom:35px;
+        }
+
+        .logo span{
+            color:#38bdf8;
+        }
+
+        .sidebar a{
+            display:block;
+            color:#dbeafe;
+            text-decoration:none;
+            padding:14px;
+            margin-bottom:10px;
+            border-radius:10px;
+            transition:.3s;
+        }
+
+        .sidebar a:hover{
+            background:#1e293b;
+        }
+
+        .logout{
+            margin-top:35px;
+            background:#dc2626;
+            text-align:center;
+            color:white !important;
+        }
+
+        /* ===========================
+           Main Area
+        =========================== */
+
+        .main{
+            flex:1;
+            padding:30px;
+        }
+
+        .topbar{
+            background:white;
+            padding:25px;
+            border-radius:15px;
+            box-shadow:0 5px 15px rgba(0,0,0,.08);
+            margin-bottom:30px;
+        }
+
+        .topbar h1{
+            color:#0f172a;
+            margin-bottom:8px;
+        }
+
+        .topbar p{
+            color:#64748b;
+        }
+
+        /* ===========================
+           Cards
+        =========================== */
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(260px,1fr));
+
+            gap:20px;
+
+        }
+
+        .card{
+
+            background:white;
+
+            border-radius:15px;
+
+            padding:25px;
+
+            box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+            transition:.3s;
+
+        }
+
+        .card:hover{
+
+            transform:translateY(-6px);
+
+        }
+
+        .card h3{
+
+            color:#0f172a;
+
+            margin-bottom:15px;
+
+        }
+
+        .card p{
+
+            color:#64748b;
+
+            line-height:1.6;
+
+            margin-bottom:20px;
+
+        }
+
+        .btn{
+
+            display:inline-block;
+
+            text-decoration:none;
+
+            background:#2563eb;
+
+            color:white;
+
+            padding:11px 18px;
+
+            border-radius:8px;
+
+        }
+
+        .btn:hover{
+
+            background:#1d4ed8;
+
+        }
+
+        .stat{
+
+            font-size:30px;
+
+            font-weight:bold;
+
+            color:#2563eb;
+
+            margin-bottom:12px;
+
+        }
+
+        @media(max-width:768px){
+
+            .dashboard{
+
+                flex-direction:column;
+
+            }
+
+            .sidebar{
+
+                width:100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="sidebar">
+
+<div class="logo">
+
+Cert<span>Chain</span>
+
+</div>
+
+<a href="/verifier/dashboard">
+
+🏠 Dashboard
+
+</a>
+
+<a href="{{ url_for('verify_certificate') }}">
+
+🔍 Verify Certificate
+
+</a>
+
+<a href="{{ url_for('verification_history') }}">
+
+📜 Verification History
+
+</a>
+
+<a href="/logout" class="logout">
+
+Logout
+
+</a>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h1>Verifier Dashboard</h1>
+
+<p>
+
+Welcome,
+
+<b>{{ user_name }}</b>
+
+</p>
+
+</div>
+
+<div class="cards">
+<!-- Verify Certificate Card -->
+
+<div class="card">
+
+    <h3>🔍 Verify Certificate</h3>
+
+    <p>
+        Upload a certificate PDF and verify
+        whether it is genuine or tampered
+        using the blockchain hash.
+    </p>
+
+    <a href="{{ url_for('verify_certificate') }}"
+       class="btn">
+
+        Verify Now
+
+    </a>
+
+</div>
+
+
+<!-- Verification History Card -->
+
+<div class="card">
+
+    <h3>📜 Verification History</h3>
+
+    <p>
+        View every certificate verification
+        performed by the verifier with
+        validation results.
+    </p>
+
+    <a href="{{ url_for('verification_history') }}"
+       class="btn">
+
+        View History
+
+    </a>
+
+</div>
+
+
+<!-- Statistics Card -->
+
+<div class="card">
+
+    <h3>📊 System Statistics</h3>
+
+    <div class="stat">
+
+        {{ total_certificates }}
+
+    </div>
+
+    <p>
+
+        Total Certificates Issued
+
+    </p>
+
+    <hr style="margin:15px 0;">
+
+    <div class="stat"
+         style="color:green;">
+
+        {{ valid_certificates }}
+
+    </div>
+
+    <p>
+
+        Certificates Stored on Blockchain
+
+    </p>
+
+</div>
+
+
+
+</div>
+
+<!-- Footer -->
+
+<div style="
+    margin-top:40px;
+    text-align:center;
+    color:#64748b;
+    font-size:14px;
+">
+
+    <hr style="margin-bottom:20px;">
+
+    <p>
+        © 2026 <strong>CertChain</strong>
+        | Blockchain Certificate Verification System
+    </p>
+
+    <p style="margin-top:8px;">
+        Verifier Panel • Secure SHA-256 Verification • Flask + Blockchain
+    </p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

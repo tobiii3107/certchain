@@ -1,0 +1,1278 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f8fc;
+    color: #10243e;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 7%;
+    background: rgba(5, 28, 57, 0.94);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+    color: white;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.logo span {
+    color: #42c8ff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #dcecff;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #42c8ff;
+}
+
+.nav-button {
+    padding: 11px 20px;
+    border-radius: 9px;
+    background: #42c8ff;
+    color: #061b33;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.nav-button:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+.hero {
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 70px;
+    padding: 85px 7%;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top right, rgba(54, 190, 255, 0.3), transparent 35%),
+        linear-gradient(135deg, #04152c, #073f7a, #067cc2);
+    color: white;
+}
+
+.hero-content {
+    max-width: 720px;
+}
+
+.hero-badge {
+    display: inline-block;
+    margin-bottom: 22px;
+    padding: 9px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.11);
+    color: #d9f4ff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.hero h1 {
+    margin-bottom: 24px;
+    font-size: clamp(42px, 5vw, 70px);
+    line-height: 1.08;
+}
+
+.hero h1 span {
+    display: block;
+    color: #50d1ff;
+}
+
+.hero-description {
+    max-width: 650px;
+    margin-bottom: 32px;
+    color: #d6eaff;
+    font-size: 18px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 42px;
+}
+
+.primary-button,
+.secondary-button {
+    display: inline-block;
+    padding: 13px 27px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.primary-button {
+    background: #42c8ff;
+    color: #05182c;
+}
+
+.primary-button:hover {
+    background: white;
+    transform: translateY(-3px);
+}
+
+.secondary-button {
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.secondary-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat-box {
+    padding: 18px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.09);
+    text-align: center;
+}
+
+.stat-box h3 {
+    color: #52d4ff;
+    font-size: 21px;
+}
+
+.stat-box p {
+    color: #d7e9fa;
+    font-size: 13px;
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+}
+
+.certificate-card {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+    transform: rotate(-2deg);
+}
+
+.certificate-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.certificate-logo {
+    display: grid;
+    width: 55px;
+    height: 55px;
+    place-items: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 30px;
+}
+
+.certificate-header h3 {
+    font-size: 22px;
+}
+
+.certificate-header p {
+    color: #bfe8ff;
+    font-size: 13px;
+}
+
+.certificate-body {
+    padding: 24px 0 10px;
+}
+
+.certificate-body span {
+    display: block;
+    margin-top: 15px;
+    color: #b9daf1;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.certificate-body h2 {
+    margin-top: 2px;
+    font-size: 28px;
+}
+
+.certificate-body p {
+    margin-top: 3px;
+    color: #e8f5ff;
+}
+
+.hash-text {
+    margin-top: 7px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(2, 18, 36, 0.35);
+    color: #72dcff;
+    font-family: monospace;
+    word-break: break-all;
+}
+
+.verified-badge {
+    position: absolute;
+    right: 25px;
+    bottom: 24px;
+    padding: 9px 15px;
+    border-radius: 22px;
+    background: #28d68b;
+    color: #062b1e;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.floating-card {
+    position: absolute;
+    padding: 12px 17px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-weight: 700;
+    animation: float 3.5s ease-in-out infinite;
+}
+
+.floating-card-one {
+    top: 60px;
+    right: -15px;
+}
+
+.floating-card-two {
+    left: -15px;
+    bottom: 60px;
+    animation-delay: 1.2s;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.features-section,
+.process-section {
+    padding: 90px 7%;
+}
+
+.section-heading {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.section-heading span,
+.about-content > span {
+    color: #0879c9;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.section-heading h2,
+.about-content h2 {
+    margin: 10px 0 14px;
+    color: #0b2745;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.15;
+}
+
+.section-heading p {
+    color: #60768d;
+    font-size: 16px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.feature-card {
+    padding: 30px;
+    border: 1px solid #dce9f4;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 15px 35px rgba(11, 39, 69, 0.08);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 22px 45px rgba(11, 39, 69, 0.14);
+}
+
+.feature-icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 18px;
+    place-items: center;
+    border-radius: 15px;
+    background: #e8f7ff;
+    font-size: 29px;
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+    color: #0b2745;
+    font-size: 20px;
+}
+
+.feature-card p {
+    color: #667b90;
+}
+
+.roles-section {
+    padding: 90px 7%;
+    background:
+        radial-gradient(circle at top left, rgba(35, 187, 255, 0.22), transparent 35%),
+        linear-gradient(135deg, #05172e, #073c72);
+}
+
+.light-heading h2 {
+    color: white;
+}
+
+.light-heading p {
+    color: #d0e6f9;
+}
+
+.light-heading span {
+    color: #52d4ff;
+}
+
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.role-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.22);
+    transition: 0.3s;
+}
+
+.role-card:hover {
+    transform: translateY(-9px);
+}
+
+.featured-role {
+    transform: scale(1.04);
+}
+
+.featured-role:hover {
+    transform: scale(1.04) translateY(-9px);
+}
+
+.recommended-label {
+    position: absolute;
+    top: 15px;
+    right: -34px;
+    width: 145px;
+    padding: 6px;
+    transform: rotate(42deg);
+    background: #ffd858;
+    color: #4b3600;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+    z-index: 2;
+}
+
+.role-top {
+    padding: 34px 25px;
+    color: white;
+    text-align: center;
+}
+
+.admin-role {
+    background: linear-gradient(135deg, #123a6f, #1576c2);
+}
+
+.student-role {
+    background: linear-gradient(135deg, #4d2e9d, #8c5de0);
+}
+
+.verifier-role {
+    background: linear-gradient(135deg, #116250, #1ca47b);
+}
+
+.role-icon {
+    margin-bottom: 10px;
+    font-size: 50px;
+}
+
+.role-top h3 {
+    font-size: 22px;
+}
+
+.role-body {
+    padding: 28px;
+}
+
+.role-body > p {
+    min-height: 78px;
+    color: #687c90;
+}
+
+.role-body ul {
+    margin: 20px 0 26px;
+    list-style: none;
+}
+
+.role-body li {
+    position: relative;
+    margin-bottom: 11px;
+    padding-left: 24px;
+    color: #314960;
+    font-size: 14px;
+}
+
+.role-body li::before {
+    position: absolute;
+    left: 0;
+    content: "✓";
+    color: #0ea56f;
+    font-weight: bold;
+}
+
+.role-button {
+    display: block;
+    padding: 12px;
+    border-radius: 9px;
+    background: #0b6fbb;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.role-button:hover {
+    background: #084f86;
+}
+
+.process-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+.process-card {
+    flex: 1;
+    min-height: 225px;
+    padding: 27px 20px;
+    border: 1px solid #dce8f2;
+    border-radius: 18px;
+    background: white;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(11, 39, 69, 0.07);
+}
+
+.process-number {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 17px;
+    place-items: center;
+    border-radius: 50%;
+    background: #0b7bc4;
+    color: white;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.process-card h3 {
+    margin-bottom: 10px;
+    color: #0b2745;
+}
+
+.process-card p {
+    color: #687c90;
+    font-size: 14px;
+}
+
+.process-line {
+    width: 45px;
+    height: 2px;
+    background: #81cdeb;
+}
+
+.about-section {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 70px;
+    align-items: center;
+    padding: 90px 7%;
+    background: white;
+}
+
+.about-content p {
+    margin-bottom: 18px;
+    color: #667b90;
+}
+
+.about-content .primary-button {
+    margin-top: 10px;
+}
+
+.about-points {
+    display: grid;
+    gap: 20px;
+}
+
+.about-point {
+    display: flex;
+    gap: 17px;
+    padding: 23px;
+    border: 1px solid #dce9f4;
+    border-radius: 15px;
+    background: #f7fbff;
+}
+
+.about-point > span {
+    display: grid;
+    min-width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: #d9f8eb;
+    color: #129363;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.about-point h3 {
+    margin-bottom: 5px;
+    color: #0b2745;
+}
+
+.about-point p {
+    color: #667b90;
+    font-size: 14px;
+}
+
+.cta-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding: 55px 7%;
+    background: linear-gradient(135deg, #0877c4, #0d4d8a);
+    color: white;
+}
+
+.cta-section h2 {
+    margin-bottom: 7px;
+    font-size: 32px;
+}
+
+.cta-section p {
+    color: #d6ecff;
+}
+
+.cta-button {
+    flex-shrink: 0;
+    padding: 14px 25px;
+    border-radius: 10px;
+    background: white;
+    color: #07568f;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+}
+
+.footer {
+    padding: 65px 7% 20px;
+    background: #031326;
+    color: white;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 45px;
+    padding-bottom: 40px;
+}
+
+.footer-brand h2 {
+    margin-bottom: 13px;
+    font-size: 30px;
+}
+
+.footer-brand h2 span {
+    color: #42c8ff;
+}
+
+.footer-brand p {
+    max-width: 340px;
+    color: #9fb7cb;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.footer-links h3 {
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+
+.footer-links a,
+.footer-links p {
+    color: #9fb7cb;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: #42c8ff;
+}
+
+.footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #829bae;
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 1050px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: none;
+    }
+
+    .hero-description {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        min-height: 430px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .roles-grid {
+        grid-template-columns: 1fr;
+        max-width: 650px;
+    }
+
+    .featured-role,
+    .featured-role:hover {
+        transform: none;
+    }
+
+    .process-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .process-line {
+        display: none;
+    }
+
+    .about-section {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        padding: 16px 5%;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .nav-button {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 65px 5%;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .certificate-card {
+        padding: 22px;
+        transform: none;
+    }
+
+    .floating-card {
+        display: none;
+    }
+
+    .features-section,
+    .roles-section,
+    .process-section,
+    .about-section {
+        padding: 70px 5%;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-container {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 45px 5%;
+    }
+
+    .footer {
+        padding: 55px 5% 20px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================================================
+   CERTCHAIN 3D BLOCKCHAIN EXPERIENCE
+   ========================================================= */
+
+.hero-visual {
+    perspective: 1400px;
+}
+
+/* Main 3D stage */
+
+.blockchain-scene {
+    position: relative;
+    width: 560px;
+    height: 560px;
+    max-width: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out;
+}
+
+/* Ambient glow */
+
+.scene-glow {
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle,
+        rgba(66, 200, 255, 0.35),
+        rgba(66, 200, 255, 0.08) 40%,
+        transparent 70%);
+    filter: blur(25px);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Rotating orbit rings */
+
+.orbit {
+    position: absolute;
+    inset: 70px;
+    border: 1px solid rgba(80, 209, 255, 0.32);
+    border-radius: 50%;
+    transform-style: preserve-3d;
+}
+
+.orbit::before,
+.orbit::after {
+    content: "";
+    position: absolute;
+    inset: 12%;
+    border: 1px dashed rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+}
+
+.orbit-1 {
+    animation: rotateOrbit 14s linear infinite;
+    transform: rotateX(65deg) rotateZ(0deg);
+}
+
+.orbit-2 {
+    inset: 105px;
+    animation: rotateOrbitReverse 10s linear infinite;
+    transform: rotateY(68deg) rotateZ(20deg);
+    border-color: rgba(66, 200, 255, 0.2);
+}
+
+/* Blockchain nodes */
+
+.chain-node {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(113, 224, 255, 0.75);
+    border-radius: 15px;
+    background: rgba(3, 31, 61, 0.85);
+    box-shadow:
+        0 0 18px rgba(66, 200, 255, 0.35),
+        inset 0 0 15px rgba(66, 200, 255, 0.12);
+    color: #72dcff;
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 800;
+    transform: translateZ(35px);
+}
+
+.chain-node::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: -4px;
+    top: -4px;
+    border-radius: 50%;
+    background: #43e6a4;
+    box-shadow: 0 0 12px #43e6a4;
+}
+
+.node-a {
+    top: -29px;
+    left: calc(50% - 29px);
+}
+
+.node-b {
+    right: -29px;
+    top: calc(50% - 29px);
+}
+
+.node-c {
+    bottom: -29px;
+    left: calc(50% - 29px);
+}
+
+.node-d {
+    left: -29px;
+    top: calc(50% - 29px);
+}
+
+.node-e {
+    top: -29px;
+    left: calc(50% - 29px);
+}
+
+.node-f {
+    right: 3%;
+    bottom: 13%;
+}
+
+.node-g {
+    left: 3%;
+    bottom: 13%;
+}
+
+/* Central blockchain */
+
+.blockchain-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 245px;
+    height: 245px;
+    transform: translate(-50%, -50%) translateZ(80px);
+    transform-style: preserve-3d;
+}
+
+.core-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(80, 209, 255, 0.35);
+}
+
+.ring-1 {
+    animation: spinRing 7s linear infinite;
+}
+
+.ring-2 {
+    inset: 15px;
+    border-style: dashed;
+    animation: spinRingReverse 5s linear infinite;
+}
+
+.core-card {
+    position: absolute;
+    inset: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 25px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16, 76, 125, 0.9),
+            rgba(3, 24, 50, 0.94)
+        );
+    backdrop-filter: blur(15px);
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.35),
+        inset 0 0 30px rgba(66,200,255,0.08);
+    transform: translateZ(35px);
+}
+
+.core-icon {
+    font-size: 35px;
+    margin-bottom: 5px;
+    filter: drop-shadow(0 0 10px rgba(66,200,255,0.8));
+}
+
+.core-card strong {
+    color: white;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.core-card span {
+    margin-top: 4px;
+    color: #91cce9;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.core-hash {
+    margin-top: 13px;
+    padding: 7px 12px;
+    border-radius: 7px;
+    background: rgba(0,0,0,0.25);
+    color: #69dcff;
+    font-family: monospace;
+    font-size: 10px;
+}
+
+.core-status {
+    margin-top: 10px;
+    color: #53e8aa;
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.core-status i {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 4px;
+    border-radius: 50%;
+    background: #53e8aa;
+    box-shadow: 0 0 8px #53e8aa;
+    animation: statusPulse 1.5s infinite;
+}
+
+/* Moving data */
+
+.data-stream {
+    position: absolute;
+    padding: 7px 11px;
+    border: 1px solid rgba(80,209,255,0.2);
+    border-radius: 7px;
+    background: rgba(3,20,40,0.65);
+    color: #65d9ff;
+    font-family: monospace;
+    font-size: 9px;
+    white-space: nowrap;
+    opacity: 0.75;
+}
+
+.stream-1 {
+    top: 20%;
+    left: 4%;
+    animation: dataFloat 4s ease-in-out infinite;
+}
+
+.stream-2 {
+    top: 69%;
+    right: 0;
+    animation: dataFloat 5s ease-in-out infinite 1s;
+}
+
+.stream-3 {
+    bottom: 8%;
+    left: 27%;
+    animation: dataFloat 4.5s ease-in-out infinite 0.5s;
+}
+
+/* Scene labels */
+
+.scene-label {
+    position: absolute;
+    padding: 10px 14px;
+    border-left: 2px solid #42c8ff;
+    background: rgba(2,20,40,0.55);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.scene-label span {
+    display: block;
+    color: #82b9d6;
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+.scene-label b {
+    color: #fff;
+    font-family: monospace;
+    font-size: 11px;
+}
+
+.label-top {
+    top: 8%;
+    right: 7%;
+}
+
+.label-bottom {
+    bottom: 12%;
+    left: 4%;
+}
+
+/* Animations */
+
+@keyframes rotateOrbit {
+    from {
+        transform: rotateX(65deg) rotateZ(0deg);
+    }
+    to {
+        transform: rotateX(65deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotateOrbitReverse {
+    from {
+        transform: rotateY(68deg) rotateZ(360deg);
+    }
+    to {
+        transform: rotateY(68deg) rotateZ(0deg);
+    }
+}
+
+@keyframes spinRing {
+    from {
+        transform: rotateZ(0deg) rotateX(8deg);
+    }
+    to {
+        transform: rotateZ(360deg) rotateX(8deg);
+    }
+}
+
+@keyframes spinRingReverse {
+    from {
+        transform: rotateZ(360deg) rotateY(15deg);
+    }
+    to {
+        transform: rotateZ(0deg) rotateY(15deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+@keyframes statusPulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
+@keyframes dataFloat {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.55;
+    }
+
+    50% {
+        transform: translateY(-12px);
+        opacity: 1;
+    }
+}
+
+/* Mouse-controlled 3D stage */
+
+.blockchain-scene {
+    --mouse-x: 0deg;
+    --mouse-y: 0deg;
+    transform:
+        rotateX(var(--mouse-y))
+        rotateY(var(--mouse-x));
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .blockchain-scene {
+        width: 390px;
+        height: 390px;
+    }
+
+    .orbit {
+        inset: 35px;
+    }
+
+    .orbit-2 {
+        inset: 65px;
+    }
+
+    .blockchain-core {
+        width: 190px;
+        height: 190px;
+    }
+
+    .core-card {
+        inset: 32px;
+    }
+
+    .chain-node {
+        width: 45px;
+        height: 45px;
+        border-radius: 11px;
+    }
+
+    .data-stream,
+    .scene-label {
+        display: none;
+    }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .orbit,
+    .core-ring,
+    .scene-glow,
+    .data-stream,
+    .core-status i {
+        animation: none !important;
+    }
+
+    .blockchain-scene {
+        transform: none !important;
+    }
+}

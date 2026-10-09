@@ -1,0 +1,122 @@
+[
+  {
+    "timestamp": "2026-09-07 12:49:58",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Logout",
+    "details": "User logged out"
+  },
+  {
+    "timestamp": "2026-10-09 11:19:35",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Login",
+    "details": "Admin login successful"
+  },
+  {
+    "timestamp": "2026-10-09 11:22:43",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Student Registration",
+    "details": "Registered thanush (CM041)"
+  },
+  {
+    "timestamp": "2026-10-09 11:24:03",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Certificate Deleted",
+    "details": "test student's certificate deleted by admin."
+  },
+  {
+    "timestamp": "2026-10-09 11:24:09",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Certificate Deleted",
+    "details": "naveen saravakota's certificate deleted by admin."
+  },
+  {
+    "timestamp": "2026-10-09 11:24:48",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Certificate Issued",
+    "details": "diploma issued to thanush"
+  },
+  {
+    "timestamp": "2026-10-09 11:25:35",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Certificate Issued",
+    "details": "diploma issued to test student"
+  },
+  {
+    "timestamp": "2026-10-09 11:26:21",
+    "user": "Certificate Verifier",
+    "email": "verifier@certchain.com",
+    "role": "verifier",
+    "action": "Login",
+    "details": "Verifier login successful"
+  },
+  {
+    "timestamp": "2026-10-09 11:26:46",
+    "user": "Certificate Verifier",
+    "email": "verifier@certchain.com",
+    "role": "verifier",
+    "action": "Certificate Verification",
+    "details": "Valid original certificate"
+  },
+  {
+    "timestamp": "2026-10-09 11:27:10",
+    "user": "Certificate Verifier",
+    "email": "verifier@certchain.com",
+    "role": "verifier",
+    "action": "Certificate Verification",
+    "details": "Valid original certificate"
+  },
+  {
+    "timestamp": "2026-10-09 11:27:15",
+    "user": "Certificate Verifier",
+    "email": "verifier@certchain.com",
+    "role": "verifier",
+    "action": "Certificate Verification",
+    "details": "Valid certificate hash"
+  },
+  {
+    "timestamp": "2026-10-09 11:27:30",
+    "user": "Certificate Verifier",
+    "email": "verifier@certchain.com",
+    "role": "verifier",
+    "action": "Certificate Verification",
+    "details": "Tampered or invalid certificate"
+  },
+  {
+    "timestamp": "2026-10-09 11:33:15",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Login",
+    "details": "Admin login successful"
+  },
+  {
+    "timestamp": "2026-10-09 11:37:16",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Login",
+    "details": "Admin login successful"
+  },
+  {
+    "timestamp": "2026-10-09 11:50:53",
+    "user": "College Administrator",
+    "email": "admin@certchain.com",
+    "role": "admin",
+    "action": "Login",
+    "details": "Admin login successful"
+  }
+]

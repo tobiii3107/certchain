@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Certificate - CertChain</title>
+</head>
+
+<body>
+
+<h1>Verify Certificate</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <label>Select Certificate PDF:</label>
+    <br><br>
+
+    <input
+        type="file"
+        name="certificate"
+        accept=".pdf"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Verify Certificate
+    </button>
+
+</form>
+
+<br>
+
+<a href="/verifier/dashboard">
+    Back to Dashboard
+</a>
+
+</body>
+</html>

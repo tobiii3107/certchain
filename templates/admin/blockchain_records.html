@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Blockchain Records | CertChain</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #071b35;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #061426;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            background: #2563eb;
+            padding: 11px 18px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background: #1d4ed8;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1400px;
+            margin: 35px auto;
+        }
+
+        h1 {
+            color: #38bdf8;
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #102b4d;
+            border: 1px solid #29496b;
+            border-radius: 15px;
+            padding: 22px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th {
+            background: #1d4ed8;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #29496b;
+        }
+
+        .hash {
+            color: #38bdf8;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            word-break: break-all;
+        }
+
+        .verified {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #cbd5e1;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            CertChain
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('admin_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('upload_certificate') }}">
+                Issue Certificate
+            </a>
+
+            <a href="{{ url_for('verify_certificate') }}">
+                Verify Hash
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <h1>
+            Blockchain Records
+        </h1>
+
+        <p class="subtitle">
+            SHA-256 certificate records stored in CertChain.
+        </p>
+
+
+        <div class="card">
+
+            {% if certificates %}
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>S.No</th>
+                        <th>Student</th>
+                        <th>Student ID</th>
+                        <th>Certificate</th>
+                        <th>Type</th>
+                        <th>Issue Date</th>
+                        <th>SHA-256 Hash</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for certificate in certificates %}
+
+                    <tr>
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+                        <td>
+                            {{ certificate.student.full_name }}
+                        </td>
+
+                        <td>
+                            {{ certificate.student.student_id }}
+                        </td>
+
+                        <td>
+                            {{ certificate.certificate_name }}
+                        </td>
+
+                        <td>
+                            {{ certificate.certificate_type }}
+                        </td>
+
+                        <td>
+                            {{ certificate.issue_date }}
+                        </td>
+
+                        <td class="hash">
+                            {{ certificate.blockchain_hash }}
+                        </td>
+
+                        <td class="verified">
+                            {{ certificate.status }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <div class="empty">
+                No blockchain records found.
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

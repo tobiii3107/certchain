@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - CertChain</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+            color: #17324d;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 270px;
+            height: 100vh;
+            overflow-y: auto;
+            background: linear-gradient(
+                180deg,
+                #061a33,
+                #0b4380
+            );
+            color: white;
+        }
+
+        .brand {
+            padding: 24px;
+            font-size: 28px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+        }
+
+        .brand span {
+            color: #42c8ff;
+        }
+
+        .profile {
+            text-align: center;
+            padding: 22px;
+        }
+
+        .avatar {
+            width: 68px;
+            height: 68px;
+            margin: auto;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,.15);
+            font-size: 32px;
+        }
+
+        .profile h6 {
+            margin: 10px 0 3px;
+        }
+
+        .profile small {
+            color: #b9d7ef;
+        }
+
+        /* ================= MENU ================= */
+
+        .menu {
+            padding: 8px 14px 25px;
+        }
+
+        .title {
+            margin: 18px 12px 8px;
+            color: #8fb8d8;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .menu a {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 4px 0;
+            border-radius: 9px;
+            color: #dbeeff;
+            text-decoration: none;
+            transition: .2s;
+        }
+
+        .menu a i {
+            font-size: 18px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(66,200,255,.2);
+            color: white;
+        }
+
+        .danger-link {
+            color: #ffdddd !important;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 270px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            padding: 20px 30px;
+            background: white;
+            box-shadow:
+                0 4px 18px rgba(21,51,82,.08);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        /* ================= WELCOME ================= */
+
+        .welcome {
+            padding: 28px;
+            border-radius: 18px;
+
+            background: linear-gradient(
+                135deg,
+                #0a63a5,
+                #13a4d8
+            );
+
+            color: white;
+
+            box-shadow:
+                0 15px 35px rgba(8,93,156,.22);
+        }
+
+        .welcome h2 {
+            margin-bottom: 0;
+        }
+
+        .welcome p {
+            color: #e0f5ff;
+            margin: 8px 0 0;
+        }
+
+        /* ================= STAT CARDS ================= */
+
+        .stat {
+            height: 100%;
+            padding: 22px;
+            border-radius: 16px;
+            background: white;
+
+            box-shadow:
+                0 10px 25px rgba(21,51,82,.08);
+        }
+
+        .stat .ico {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 25px;
+        }
+
+        .blue {
+            background: #e1f3ff;
+            color: #0878c7;
+        }
+
+        .green {
+            background: #ddf8ed;
+            color: #159667;
+        }
+
+        .purple {
+            background: #eee6ff;
+            color: #7547c7;
+        }
+
+        .orange {
+            background: #fff0dc;
+            color: #d67708;
+        }
+
+        .stat h3 {
+            margin: 14px 0 2px;
+            font-weight: 700;
+        }
+
+        .stat p {
+            margin: 0;
+            color: #74879a;
+        }
+
+        /* ================= CARD ================= */
+
+        .cardx {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+
+            box-shadow:
+                0 10px 25px rgba(21,51,82,.08);
+        }
+
+        /* ================= QUICK ACTION ================= */
+
+        .action {
+            display: block;
+            height: 100%;
+
+            padding: 20px;
+
+            border: 1px solid #dce9f4;
+            border-radius: 13px;
+
+            color: #17324d;
+            text-align: center;
+            text-decoration: none;
+
+            transition: .2s;
+            background: white;
+        }
+
+        .action:hover {
+            border-color: #199fd5;
+            background: #effaff;
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 20px rgba(25,159,213,.12);
+        }
+
+        .action i {
+            display: block;
+
+            font-size: 30px;
+
+            color: #0878c7;
+
+            margin-bottom: 8px;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        .table th {
+            white-space: nowrap;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .badge-soft {
+            font-size: 12px;
+        }
+
+        .small-muted {
+            color: #74879a;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 900px) {
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 16px;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+        Cert<span>Chain</span>
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="profile">
+
+        <div class="avatar">
+            👨‍💼
+        </div>
+
+        <h6>
+            {{ user_name or 'Administrator' }}
+        </h6>
+
+        <small>
+            College Administrator
+        </small>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <nav class="menu">
+
+
+        <!-- MAIN -->
+
+        <div class="title">
+            MAIN
+        </div>
+
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="active"
+        >
+            <i class="bi bi-grid-fill"></i>
+            Dashboard Overview
+        </a>
+
+
+        <!-- STUDENT MANAGEMENT -->
+
+        <div class="title">
+            STUDENT MANAGEMENT
+        </div>
+
+
+        <a href="{{ url_for('register_student') }}">
+
+            <i class="bi bi-person-plus-fill"></i>
+
+            Register Student
+
+        </a>
+
+
+        <a href="{{ url_for('view_students') }}">
+
+            <i class="bi bi-people-fill"></i>
+
+            View Students
+
+        </a>
+
+
+
+        <!-- CERTIFICATES -->
+
+        <div class="title">
+            CERTIFICATES
+        </div>
+
+
+        <a href="{{ url_for('upload_certificate') }}">
+
+            <i class="bi bi-file-earmark-plus-fill"></i>
+
+            Issue Certificate
+
+        </a>
+
+
+        <a href="{{ url_for('view_certificates') }}">
+
+            <i class="bi bi-file-earmark-check-fill"></i>
+
+            View Certificates
+
+        </a>
+
+
+
+        <!-- BLOCKCHAIN -->
+
+        <div class="title">
+            BLOCKCHAIN
+        </div>
+
+
+        <a href="{{ url_for('blockchain_records') }}">
+
+            <i class="bi bi-link-45deg"></i>
+
+            Blockchain Records
+
+        </a>
+
+
+        <a href="{{ url_for('qr_verification') }}">
+
+            <i class="bi bi-qr-code"></i>
+
+            QR Verification
+
+        </a>
+
+
+        <a href="{{ url_for('verify_stored_hash') }}">
+
+            <i class="bi bi-shield-check"></i>
+
+            Verify Stored Hash
+
+        </a>
+
+
+
+        <!-- SYSTEM -->
+
+        <div class="title">
+            SYSTEM
+        </div>
+
+
+        <a href="{{ url_for('reports') }}">
+
+            <i class="bi bi-bar-chart-fill"></i>
+
+            Reports
+
+        </a>
+
+
+        <a href="{{ url_for('activity_logs') }}">
+
+            <i class="bi bi-clock-history"></i>
+
+            Activity Logs
+
+        </a>
+
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="danger-link"
+        >
+
+            <i class="bi bi-box-arrow-left"></i>
+
+            Logout
+
+        </a>
+
+
+    </nav>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div>
+
+            <h4 class="mb-1">
+                Admin Dashboard
+            </h4>
+
+            <small class="text-muted">
+                Blockchain Certificate Management System
+            </small>
+
+        </div>
+
+
+        <span class="badge text-bg-success p-2">
+
+            <i class="bi bi-shield-check"></i>
+
+            System Secure
+
+        </span>
+
+    </header>
+
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="alert
+                        alert-{{ 'danger' if category == 'danger' else category }}
+                        alert-dismissible
+                        fade
+                        show"
+                        role="alert"
+                    >
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                        ></button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome mb-4">
+
+            <h2>
+                Welcome,
+                {{ user_name or 'Administrator' }}
+                👋
+            </h2>
+
+            <p>
+
+                Manage students, certificates,
+                blockchain records, QR verification,
+                reports and activity from one place.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================= -->
+
+        <div class="row g-4 mb-4">
+
+
+            <!-- STUDENTS -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="stat">
+
+                    <div class="ico blue">
+
+                        <i class="bi bi-people-fill"></i>
+
+                    </div>
+
+
+                    <h3>
+                        {{ total_students or 0 }}
+                    </h3>
+
+
+                    <p>
+                        Total Students
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CERTIFICATES -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="stat">
+
+                    <div class="ico green">
+
+                        <i class="bi bi-award-fill"></i>
+
+                    </div>
+
+
+                    <h3>
+                        {{ total_certificates or 0 }}
+                    </h3>
+
+
+                    <p>
+                        Certificates Issued
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BLOCKCHAIN -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="stat">
+
+                    <div class="ico purple">
+
+                        <i class="bi bi-link-45deg"></i>
+
+                    </div>
+
+
+                    <h3>
+                        {{ total_blockchain_records or 0 }}
+                    </h3>
+
+
+                    <p>
+                        Blockchain Records
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- VERIFICATIONS -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="stat">
+
+                    <div class="ico orange">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+
+                    <h3>
+                        {{ total_verifications or 0 }}
+                    </h3>
+
+
+                    <p>
+                        Total Verifications
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================= -->
+
+        <section class="cardx mb-4">
+
+
+            <div
+                class="d-flex
+                justify-content-between
+                align-items-center
+                mb-3"
+            >
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">
+                        Quick Actions
+                    </h5>
+
+                    <small class="small-muted">
+
+                        Frequently used administration options
+
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="row g-3">
+
+
+                <!-- REGISTER -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('register_student') }}"
+                    >
+
+                        <i class="bi bi-person-plus-fill"></i>
+
+                        Register Student
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- STUDENTS -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('view_students') }}"
+                    >
+
+                        <i class="bi bi-people-fill"></i>
+
+                        View Students
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- ISSUE -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('upload_certificate') }}"
+                    >
+
+                        <i class="bi bi-file-earmark-plus-fill"></i>
+
+                        Issue Certificate
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- VIEW CERTIFICATES -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('view_certificates') }}"
+                    >
+
+                        <i class="bi bi-file-earmark-check-fill"></i>
+
+                        View Certificates
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- BLOCKCHAIN -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('blockchain_records') }}"
+                    >
+
+                        <i class="bi bi-link-45deg"></i>
+
+                        Blockchain Records
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- QR -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('qr_verification') }}"
+                    >
+
+                        <i class="bi bi-qr-code"></i>
+
+                        QR Verification
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- HASH -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('verify_stored_hash') }}"
+                    >
+
+                        <i class="bi bi-shield-check"></i>
+
+                        Verify Stored Hash
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- REPORTS -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('reports') }}"
+                    >
+
+                        <i class="bi bi-bar-chart-fill"></i>
+
+                        Reports
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- ACTIVITY LOGS -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <a
+                        class="action"
+                        href="{{ url_for('activity_logs') }}"
+                    >
+
+                        <i class="bi bi-clock-history"></i>
+
+                        Activity Logs
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT ACTIVITY
+        ================================================= -->
+
+        <section class="cardx">
+
+
+            <div
+                class="d-flex
+                justify-content-between
+                align-items-center
+                mb-3"
+            >
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">
+                        Recent Activity
+                    </h5>
+
+                    <small class="small-muted">
+
+                        Latest actions performed in CertChain
+
+                    </small>
+
+                </div>
+
+
+                <a
+                    href="{{ url_for('activity_logs') }}"
+                    class="btn btn-outline-primary btn-sm"
+                >
+
+                    View All
+
+                </a>
+
+            </div>
+
+
+
+            <div class="table-wrap">
+
+
+                <table class="table table-hover align-middle">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                            <th>
+                                User
+                            </th>
+
+                            <th>
+                                Role
+                            </th>
+
+                            <th>
+                                Details
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                        {% for item in recent_activity %}
+
+
+                        <tr>
+
+                            <td>
+                                {{ item.timestamp }}
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    class="badge
+                                    text-bg-primary
+                                    badge-soft"
+                                >
+
+                                    {{ item.action }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+                                {{ item.user }}
+                            </td>
+
+
+                            <td>
+                                {{ item.role }}
+                            </td>
+
+
+                            <td>
+                                {{ item.details }}
+                            </td>
+
+                        </tr>
+
+
+                        {% else %}
+
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="text-center
+                                text-muted
+                                py-4"
+                            >
+
+                                No activity recorded yet.
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+</html>

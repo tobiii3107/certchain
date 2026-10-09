@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Upload Certificate | CertChain</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #071329,
+                #0d2344,
+                #071329
+            );
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(5, 15, 35, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar h2 {
+            color: #38bdf8;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #334155;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            color: #38bdf8;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #cbd5e1;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(12px);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            margin-bottom: 8px;
+            color: #bfdbfe;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 8px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 15px;
+        }
+
+        select option {
+            color: black;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #38bdf8;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        .help-text {
+            margin-top: 7px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .flash-message {
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+        }
+
+        .flash-success {
+            background: rgba(22, 163, 74, 0.2);
+            border: 1px solid #22c55e;
+        }
+
+        .flash-danger {
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid #ef4444;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 16px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>CertChain Admin</h2>
+
+        <div class="nav-actions">
+            <a
+                href="{{ url_for('admin_dashboard') }}"
+                class="btn btn-secondary"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('view_certificates') }}"
+                class="btn btn-primary"
+            >
+                Certificates
+            </a>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="btn btn-danger"
+            >
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <section class="page-header">
+            <h1>Upload Certificate</h1>
+
+            <p>
+                Select a student and upload a PDF certificate.
+                A SHA-256 hash will be generated automatically.
+            </p>
+        </section>
+
+        <section class="form-card">
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+                        <label for="student_id">
+                            Select Student
+                        </label>
+
+                        <select
+                            id="student_id"
+                            name="student_id"
+                            required
+                        >
+                            <option value="">
+                                -- Select Active Student --
+                            </option>
+
+                            {% for student in students %}
+                                <option
+                                    value="{{ student.id }}"
+                                    {% if form_data.student_id|string == student.id|string %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ student.student_id }}
+                                    -
+                                    {{ student.full_name }}
+                                    -
+                                    {{ student.department }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="certificate_name">
+                            Certificate Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="certificate_name"
+                            name="certificate_name"
+                            value="{{ form_data.certificate_name or '' }}"
+                            placeholder="Example: Diploma Certificate"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="certificate_type">
+                            Certificate Type
+                        </label>
+
+                        <select
+                            id="certificate_type"
+                            name="certificate_type"
+                            required
+                        >
+                            <option value="">
+                                -- Select Type --
+                            </option>
+
+                            {% set selected_type = form_data.certificate_type or '' %}
+
+                            <option
+                                value="Academic"
+                                {% if selected_type == "Academic" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Academic
+                            </option>
+
+                            <option
+                                value="Course Completion"
+                                {% if selected_type == "Course Completion" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Course Completion
+                            </option>
+
+                            <option
+                                value="Internship"
+                                {% if selected_type == "Internship" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Internship
+                            </option>
+
+                            <option
+                                value="Achievement"
+                                {% if selected_type == "Achievement" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Achievement
+                            </option>
+
+                            <option
+                                value="Participation"
+                                {% if selected_type == "Participation" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Participation
+                            </option>
+
+                            <option
+                                value="Other"
+                                {% if selected_type == "Other" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Other
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issue_date">
+                            Issue Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="issue_date"
+                            name="issue_date"
+                            value="{{ form_data.issue_date or '' }}"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="certificate_file">
+                            Certificate PDF
+                        </label>
+
+                        <input
+                            type="file"
+                            id="certificate_file"
+                            name="certificate_file"
+                            accept=".pdf,application/pdf"
+                            required
+                        >
+
+                        <span class="help-text">
+                            Only PDF files are allowed. Maximum size: 10 MB.
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <a
+                        href="{{ url_for('admin_dashboard') }}"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Upload Certificate
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
