@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Verify Certificate | CertChain</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #071329,
+                #0d2344,
+                #071329
+            );
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(5, 15, 35, 0.96);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar h2 {
+            color: #38bdf8;
+        }
+
+        .nav-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #334155;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1050px;
+            margin: 40px auto;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: #38bdf8;
+            margin-bottom: 10px;
+            font-size: 34px;
+        }
+
+        .page-header p {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .verify-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 25px;
+        }
+
+        .tabs-info {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(230px, 1fr)
+            );
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .info-box {
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(37, 99, 235, 0.13);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        .info-box h3 {
+            color: #7dd3fc;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            color: #bfdbfe;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 8px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 15px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #94a3b8;
+        }
+
+        input:focus {
+            border-color: #38bdf8;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 24px 0;
+            color: #94a3b8;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .verify-button {
+            min-width: 210px;
+        }
+
+        .flash-message {
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+        }
+
+        .flash-success {
+            background: rgba(22, 163, 74, 0.2);
+            border: 1px solid #22c55e;
+        }
+
+        .flash-danger {
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid #ef4444;
+        }
+
+        .result-card {
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 25px;
+        }
+
+        .result-valid {
+            background: rgba(22, 163, 74, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.7);
+        }
+
+        .result-invalid {
+            background: rgba(220, 38, 38, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.7);
+        }
+
+        .result-icon {
+            font-size: 46px;
+            margin-bottom: 12px;
+        }
+
+        .result-title {
+            margin-bottom: 12px;
+        }
+
+        .result-valid .result-title {
+            color: #86efac;
+        }
+
+        .result-invalid .result-title {
+            color: #fca5a5;
+        }
+
+        .result-description {
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .certificate-details {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(240px, 1fr)
+            );
+            gap: 15px;
+        }
+
+        .detail-box {
+            padding: 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.11);
+        }
+
+        .detail-box span {
+            display: block;
+            margin-bottom: 7px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .detail-box strong {
+            color: white;
+            word-break: break-word;
+        }
+
+        .hash-box {
+            grid-column: 1 / -1;
+        }
+
+        .hash-text {
+            font-family: Consolas, monospace;
+            color: #7dd3fc !important;
+            font-size: 13px;
+        }
+
+        .download-area {
+            margin-top: 22px;
+            text-align: center;
+        }
+
+        .notice {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 10px;
+            background: rgba(234, 179, 8, 0.12);
+            border: 1px solid rgba(234, 179, 8, 0.35);
+            color: #fde68a;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .verify-card {
+                padding: 22px;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>CertChain Verification</h2>
+
+        <div class="nav-actions">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="btn btn-secondary"
+            >
+                Home
+            </a>
+
+            {% if session.get("user_role") == "admin" %}
+                <a
+                    href="{{ url_for('admin_dashboard') }}"
+                    class="btn btn-primary"
+                >
+                    Admin Dashboard
+                </a>
+
+                <a
+                    href="{{ url_for('view_certificates') }}"
+                    class="btn btn-secondary"
+                >
+                    Certificates
+                </a>
+
+            {% elif session.get("user_role") == "student" %}
+                <a
+                    href="{{ url_for('student_dashboard') }}"
+                    class="btn btn-primary"
+                >
+                    Student Dashboard
+                </a>
+
+            {% elif session.get("user_role") == "verifier" %}
+                <a
+                    href="{{ url_for('verifier_dashboard') }}"
+                    class="btn btn-primary"
+                >
+                    Verifier Dashboard
+                </a>
+            {% endif %}
+
+            {% if session.get("user_id") %}
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="btn btn-danger"
+                >
+                    Logout
+                </a>
+            {% endif %}
+
+        </div>
+    </nav>
+
+    <main class="container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <section class="page-header">
+            <h1>Verify Certificate</h1>
+
+            <p>
+                Enter the SHA-256 certificate hash or upload the PDF.
+                CertChain compares it with the stored certificate record.
+            </p>
+        </section>
+
+        <section class="verify-card">
+
+            <div class="tabs-info">
+
+                <div class="info-box">
+                    <h3>Verify Using Hash</h3>
+
+                    <p>
+                        Paste the 64-character SHA-256 hash generated
+                        when the certificate was issued.
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <h3>Verify Using PDF</h3>
+
+                    <p>
+                        Upload the original PDF. CertChain generates its
+                        hash and checks the stored certificate database.
+                    </p>
+                </div>
+
+            </div>
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <div class="form-group">
+                    <label for="blockchain_hash">
+                        SHA-256 Certificate Hash
+                    </label>
+
+                    <input
+                        type="text"
+                        id="blockchain_hash"
+                        name="blockchain_hash"
+                        value="{{ submitted_hash or '' }}"
+                        maxlength="64"
+                        placeholder="Paste the 64-character SHA-256 hash"
+                    >
+                </div>
+
+                <div class="divider">
+                    OR
+                </div>
+
+                <div class="form-group">
+                    <label for="certificate_file">
+                        Upload Certificate PDF
+                    </label>
+
+                    <input
+                        type="file"
+                        id="certificate_file"
+                        name="certificate_file"
+                        accept=".pdf,application/pdf"
+                    >
+                </div>
+
+                <div class="form-actions">
+                    <button
+                        type="submit"
+                        class="btn btn-primary verify-button"
+                    >
+                        Verify Certificate
+                    </button>
+                </div>
+
+            </form>
+
+            <div class="notice">
+                Providing a hash takes priority. To verify by PDF,
+                keep the hash field empty and select the PDF file.
+            </div>
+
+        </section>
+
+        {% if verification_result is not none %}
+
+            {% if verification_result and certificate %}
+
+                <section class="result-card result-valid">
+
+                    <div class="result-icon">
+                        ✅
+                    </div>
+
+                    <h2 class="result-title">
+                        Original Certificate
+                    </h2>
+
+                    <p class="result-description">
+                        This certificate is valid. Its SHA-256 hash
+                        matches an official CertChain certificate record.
+                    </p>
+
+                    <div class="certificate-details">
+
+                        <div class="detail-box">
+                            <span>Student Name</span>
+
+                            <strong>
+                                {{ certificate.student.full_name }}
+                            </strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Student ID</span>
+
+                            <strong>
+                                {{ certificate.student.student_id }}
+                            </strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Certificate Name</span>
+
+                            <strong>
+                                {{ certificate.certificate_name }}
+                            </strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Certificate Type</span>
+
+                            <strong>
+                                {{ certificate.certificate_type }}
+                            </strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Issue Date</span>
+
+                            <strong>
+                                {{ certificate.issue_date }}
+                            </strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Certificate Status</span>
+
+                            <strong>
+                                {{ certificate.status }}
+                            </strong>
+                        </div>
+
+                        <div class="detail-box hash-box">
+                            <span>SHA-256 Hash</span>
+
+                            <strong class="hash-text">
+                                {{ certificate.blockchain_hash }}
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    {% if session.get("user_id") %}
+                        <div class="download-area">
+                            <a
+                                href="{{ url_for(
+                                    'download_certificate',
+                                    certificate_id=certificate.id
+                                ) }}"
+                                class="btn btn-primary"
+                            >
+                                Download Certificate
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </section>
+
+            {% else %}
+
+                <section class="result-card result-invalid">
+
+                    <div class="result-icon">
+                        ❌
+                    </div>
+
+                    <h2 class="result-title">
+                        Certificate Not Verified
+                    </h2>
+
+                    <p class="result-description">
+                        The submitted certificate hash was not found
+                        in CertChain. The certificate may be modified,
+                        fake, unregistered, or uploaded incorrectly.
+                    </p>
+
+                    {% if submitted_hash %}
+                        <div class="certificate-details">
+
+                            <div class="detail-box hash-box">
+                                <span>Generated or Submitted Hash</span>
+
+                                <strong class="hash-text">
+                                    {{ submitted_hash }}
+                                </strong>
+                            </div>
+
+                        </div>
+                    {% endif %}
+
+                </section>
+
+            {% endif %}
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>
